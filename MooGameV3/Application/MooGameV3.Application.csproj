@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>MooGameV3.Application</AssemblyName>
+		<RootNamespace>MooGameV3.Application</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../MooGameV3.Domain/MooGameV3.Domain.csproj" />
+	</ItemGroup>
+</Project>
