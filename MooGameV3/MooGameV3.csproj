@@ -8,10 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Domain\Players\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Presentation\" />
+    <AdditionalFiles Remove="C:\Users\joach\source\repos\MooGameV3\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Application\MooGameV3.Application.csproj" />
+    <None Include="Domain\MooGameV3.Domain.csproj" />
+    <None Include="Infrastructure\MooGameV3.Infrastructure.csproj" />
+    <None Include="Presentation\Console\MooGameV3.Presentation.Console.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

@@ -31,8 +31,7 @@ internal static class Program
 		{
 			var goal = generator.Generate();
 			System.Console.WriteLine("New game:");
-			// Keep practice reveal (comment out to play real games)
-			System.Console.WriteLine($"For practice, number is: {goal}");
+			//System.Console.WriteLine($"For practice, number is: {goal}");
 
 			int nGuess = 0;
 			BullsCows result;
