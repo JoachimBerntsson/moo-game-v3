@@ -7,33 +7,22 @@ using MooGameV3.Presentation.Console.Scoring;
 
 namespace MooGameV3.Presentation.Console.Game;
 
-public sealed class RoundRunner : IRoundRunner
+public sealed class RoundRunner(
+	IGameIO io,
+	IGameRules rules,
+	IGuessValidator validator,
+	ICodeEvaluator evaluator,
+	IOutputFormatter output,
+	IWelcomePrinter welcome,
+	IScorePresenter scoresPresenter) : IRoundRunner
 {
-	private readonly IGameIO _io;
-	private readonly IGameRules _rules;
-	private readonly IGuessValidator _validator;
-	private readonly ICodeEvaluator _evaluator;
-	private readonly IOutputFormatter _out;
-	private readonly IWelcomePrinter _welcome;
-	private readonly IScorePresenter _scoresPresenter;
-
-	public RoundRunner(
-		IGameIO io,
-		IGameRules rules,
-		IGuessValidator validator,
-		ICodeEvaluator evaluator,
-		IOutputFormatter output,
-		IWelcomePrinter welcome,
-		IScorePresenter scoresPresenter)
-	{
-		_io = io;
-		_rules = rules;
-		_validator = validator;
-		_evaluator = evaluator;
-		_out = output;
-		_welcome = welcome;
-		_scoresPresenter = scoresPresenter;
-	}
+	private readonly IGameIO _io = io;
+	private readonly IGameRules _rules = rules;
+	private readonly IGuessValidator _validator = validator;
+	private readonly ICodeEvaluator _evaluator = evaluator;
+	private readonly IOutputFormatter _out = output;
+	private readonly IWelcomePrinter _welcome = welcome;
+	private readonly IScorePresenter _scoresPresenter = scoresPresenter;
 
 	public RoundResult Run(GameSession session)
 	{

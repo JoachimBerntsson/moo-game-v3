@@ -1,12 +1,13 @@
 ﻿using MooGameV3.Application.Abstractions;
+using MooGameV3.Application.Abstractions.Randomness;
 using MooGameV3.Domain.Game;
 
 namespace MooGameV3.Infrastructure.CodeGeneration;
 
-public sealed class RandomCodeGenerator(IGameRules rules) : ICodeGenerator
+public sealed class RandomCodeGenerator(IGameRules rules, IRandomSource rng) : ICodeGenerator
 {
-	private static readonly Random Rng = Random.Shared;
-	private readonly IGameRules _rules = rules;
+	private readonly IGameRules _rules = rules ?? throw new ArgumentNullException(nameof(rules));
+	private readonly IRandomSource _rng = rng ?? throw new ArgumentNullException(nameof(rng));
 
 	public SecretCode Generate()
 	{
@@ -21,15 +22,15 @@ public sealed class RandomCodeGenerator(IGameRules rules) : ICodeGenerator
 		if (allowDup)
 		{
 			for (int i = 0; i < len; i++)
-				buf[i] = (char)('0' + Rng.Next(10));
+				buf[i] = (char)('0' + _rng.Next(0, 10));
 		}
 		else
 		{
-			Span<bool> used = stackalloc bool[10];
+			Span<bool> used = stackalloc bool[10]; // index 0–9
 			int i = 0;
 			while (i < len)
 			{
-				int d = Rng.Next(10);
+				int d = _rng.Next(0, 10);
 				if (used[d]) continue;
 				used[d] = true;
 				buf[i++] = (char)('0' + d);

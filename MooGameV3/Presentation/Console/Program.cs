@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MooGameV3.Application.Abstractions.Randomness;
 using MooGameV3.Application.Abstractions;
 using MooGameV3.Application.Services;
 using MooGameV3.Domain.Game;
 using MooGameV3.Infrastructure.CodeGeneration;
+using MooGameV3.Infrastructure.Randomness;
 using MooGameV3.Infrastructure.FileSystem;
 using MooGameV3.Presentation.Console.Game;
 using MooGameV3.Presentation.Console.Intro;
@@ -23,6 +23,7 @@ internal static class Program
 
 		var services = new ServiceCollection()
 
+			.AddSingleton<IRandomSource, SystemRandomSource>()
 			.AddSingleton<ICodeGenerator, RandomCodeGenerator>()
 			.AddSingleton<ICodeEvaluator, CodeEvaluator>()
 			.AddSingleton<IScoreRepository>(_ => new FileScoreRepository(scoreFile))

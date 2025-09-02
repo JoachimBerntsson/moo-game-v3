@@ -8,36 +8,24 @@ using MooGameV3.Presentation.Console.Scoring;
 
 namespace MooGameV3.Presentation.Console;
 
-public sealed class ConsoleGameRunner
+public sealed class ConsoleGameRunner(
+	IGameIO io,
+	ICodeGenerator generator,
+	ScoreService scores,
+	IGameRules rules,
+	IRoundRunner roundRunner,
+	IWelcomePrinter welcome,
+	IPromptService prompts,
+	IScorePresenter scorePresenter)
 {
-	private readonly IGameIO _io;
-	private readonly ICodeGenerator _generator;
-	private readonly ScoreService _scores;
-	private readonly IGameRules _rules;
-	private readonly IRoundRunner _roundRunner;
-	private readonly IWelcomePrinter _welcome;
-	private readonly IPromptService _prompts;
-	private readonly IScorePresenter _scorePresenter;
-
-	public ConsoleGameRunner(
-		IGameIO io,
-		ICodeGenerator generator,
-		ScoreService scores,
-		IGameRules rules,
-		IRoundRunner roundRunner,
-		IWelcomePrinter welcome,
-		IPromptService prompts,
-		IScorePresenter scorePresenter)
-	{
-		_io = io;
-		_generator = generator;
-		_scores = scores;
-		_rules = rules;
-		_roundRunner = roundRunner;
-		_welcome = welcome;
-		_prompts = prompts;
-		_scorePresenter = scorePresenter;
-	}
+	private readonly IGameIO _io = io;
+	private readonly ICodeGenerator _generator = generator;
+	private readonly ScoreService _scores = scores;
+	private readonly IGameRules _rules = rules;
+	private readonly IRoundRunner _roundRunner = roundRunner;
+	private readonly IWelcomePrinter _welcome = welcome;
+	private readonly IPromptService _prompts = prompts;
+	private readonly IScorePresenter _scorePresenter = scorePresenter;
 
 	public void Run()
 	{
