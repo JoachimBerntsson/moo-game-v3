@@ -1,9 +1,15 @@
-﻿using MooGameV3.Application.Abstractions;
+﻿using System;
+using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using MooGameV3.Application.Abstractions;
 using MooGameV3.Application.Services;
 using MooGameV3.Domain.Game;
 using MooGameV3.Infrastructure.FileSystem;
 using MooGameV3.Infrastructure.Random;
-using Microsoft.Extensions.DependencyInjection;
+using MooGameV3.Presentation.Console.Game;
+using MooGameV3.Presentation.Console.Intro;
+using MooGameV3.Presentation.Console.IO;
+using MooGameV3.Presentation.Console.Scoring;
 
 namespace MooGameV3.Presentation.Console;
 
@@ -11,14 +17,29 @@ internal static class Program
 {
 	private static void Main()
 	{
+		System.Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+		var scoreFile = Path.Combine(AppContext.BaseDirectory, "result.txt");
+
 		var services = new ServiceCollection()
+
 			.AddSingleton<ICodeGenerator, RandomCodeGenerator>()
 			.AddSingleton<ICodeEvaluator, CodeEvaluator>()
-			.AddSingleton<IScoreRepository>(sp => new FileScoreRepository("result.txt"))
+			.AddSingleton<IScoreRepository>(_ => new FileScoreRepository(scoreFile))
 			.AddSingleton<ScoreService>()
 			.AddSingleton<IGameIO, SystemConsoleIO>()
 			.AddSingleton<IGuessValidator, GuessValidator>()
-			.AddSingleton<IGameRules>(sp => new GameSettings(DefaultCodeLength: 4, AllowDuplicates: false, PracticeMode: false))
+			.AddSingleton<IGameRules>(_ => new GameSettings(
+				DefaultCodeLength: 4,
+				AllowDuplicates: false,
+				PracticeMode: false))
+
+			.AddSingleton<IWelcomePrinter, WelcomePrinter>()
+			.AddSingleton<IPromptService, PromptService>()
+			.AddSingleton<IOutputFormatter, OutputFormatter>()
+			.AddSingleton<IScorePresenter, ScorePresenter>()
+			.AddSingleton<IRoundRunner, RoundRunner>()
+
 			.AddSingleton<ConsoleGameRunner>()
 			.BuildServiceProvider();
 
