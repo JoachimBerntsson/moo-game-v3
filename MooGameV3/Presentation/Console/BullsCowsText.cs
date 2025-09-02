@@ -1,6 +1,5 @@
 ﻿using MooGameV3.Domain.Game;
 
-
 namespace MooGameV3.Presentation.Console;
 internal static class BullsCowsText
 {
