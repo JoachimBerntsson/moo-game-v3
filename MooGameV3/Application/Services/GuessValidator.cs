@@ -8,7 +8,7 @@ public sealed class GuessValidator : IGuessValidator
 	public bool TryValidate(
 		string guess,
 		int requiredLength,
-		bool allowDuplicateDigits,
+		bool allowDuplicates,
 		[NotNullWhen(false)] out string? error)
 	{
 		if (requiredLength <= 0)
@@ -26,14 +26,16 @@ public sealed class GuessValidator : IGuessValidator
 			return false;
 		}
 
-		bool onlyDigits = guess.All(c => c >= '0' && c <= '9');
-		if (!onlyDigits)
+		foreach (char c in guess)
 		{
-			error = "Digits only (0–9).";
-			return false;
+			if (c < '0' || c > '9')
+			{
+				error = "Digits only (0–9).";
+				return false;
+			}
 		}
 
-		if (!allowDuplicateDigits)
+		if (!allowDuplicates)
 		{
 			var seen = new HashSet<char>(requiredLength);
 			foreach (char c in guess)

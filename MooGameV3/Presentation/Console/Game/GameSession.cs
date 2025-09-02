@@ -1,5 +1,4 @@
-﻿using System;
-using MooGameV3.Domain.Game;
+﻿using MooGameV3.Domain.Game;
 
 namespace MooGameV3.Presentation.Console.Game;
 

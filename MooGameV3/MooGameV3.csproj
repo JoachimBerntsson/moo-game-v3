@@ -26,4 +26,8 @@
     <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Random\" />
+  </ItemGroup>
+
 </Project>
