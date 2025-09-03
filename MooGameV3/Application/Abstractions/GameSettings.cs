@@ -5,7 +5,7 @@ public sealed record GameSettings(
 	bool AllowDuplicates = false,
 	bool PracticeMode = false,
 	int? MaxAttempts = null
-) : IGameRules
+) : IGameSettings, IGameRules
 {
 	int IGameRules.CodeLength => DefaultCodeLength;
 	bool IGameRules.AllowDuplicates => AllowDuplicates;
