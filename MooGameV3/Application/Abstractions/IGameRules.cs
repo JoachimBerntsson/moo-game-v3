@@ -7,11 +7,3 @@ public interface IGameRules
 	bool PracticeMode { get; }
 	int? MaxAttempts { get; }
 }
-
-public sealed class StandardGameRules : IGameRules
-{
-	public int CodeLength { get; init; } = 4;
-	public bool AllowDuplicates { get; init; } = false;
-	public bool PracticeMode { get; init; } = false;
-	public int? MaxAttempts { get; init; } = null;
-}
