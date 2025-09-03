@@ -16,20 +16,36 @@ public sealed class CodeEvaluator : ICodeEvaluator
 		var guessRaw = (guess.Value ?? string.Empty).PadRight(_codeLength, ' ');
 		var guessSpan = guessRaw.AsSpan();
 
-		int bulls = 0, cows = 0;
+		int bulls = 0;
+
+		Span<int> goalDigitCount = stackalloc int[10];
+		Span<int> guessDigitCount = stackalloc int[10];
 
 		for (int i = 0; i < _codeLength; i++)
 		{
-			var g = goalSpan[i];
-			for (int j = 0; j < _codeLength; j++)
+			char goalDigit = goalSpan[i];
+			char guessDigit = guessSpan[i];
+
+			if (goalDigit == guessDigit)
 			{
-				if (g == guessSpan[j])
-				{
-					if (i == j) bulls++;
-					else cows++;
-				}
+				bulls++;
+			}
+			else
+			{
+				if (goalDigit >= '0' && goalDigit <= '9')
+					goalDigitCount[goalDigit - '0']++;
+
+				if (guessDigit >= '0' && guessDigit <= '9')
+					guessDigitCount[guessDigit - '0']++;
 			}
 		}
+
+		int cows = 0;
+		for (int i = 0; i < 10; i++)
+		{
+			cows += Math.Min(goalDigitCount[i], guessDigitCount[i]);
+		}
+
 		return new BullsCows(bulls, cows);
 	}
 }
