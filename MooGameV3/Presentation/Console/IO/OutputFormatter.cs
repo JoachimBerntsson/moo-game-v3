@@ -22,6 +22,12 @@ public sealed class OutputFormatter : IOutputFormatter
 
 	public void Markers(BullsCows result, int codeLength)
 	{
-		_io.WriteLineColored(result.ToMarkers(codeLength), System.ConsoleColor.Yellow);
+		string formattedMarkers = FormatBullsCowsMarkers(result, codeLength);
+		_io.WriteLineColored(formattedMarkers, System.ConsoleColor.Yellow);
 	}
+
+	private static string FormatBullsCowsMarkers(BullsCows bc, int codeLength)
+		=> new string('B', Math.Clamp(bc.Bulls, 0, codeLength))
+		   + ","
+		   + new string('C', Math.Clamp(bc.Cows, 0, codeLength));
 }
