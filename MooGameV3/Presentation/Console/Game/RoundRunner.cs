@@ -77,9 +77,9 @@ public sealed class RoundRunner(
 			session.IncrementAttempts();
 
 			BullsCows result = _evaluator.Evaluate(session.Secret, new Guess(input));
-			_out.Markers(result);
+			_out.Markers(result, session.ExpectedLength);
 
-			if (result.IsWin)
+			if (result.IsWin(session.ExpectedLength))
 			{
 				_out.Success($"Correct! It took {session.TotalScore} guesses.");
 				return new RoundResult(EndRound: true, IsWin: true, Attempts: session.Attempts, Penalty: session.Penalty);

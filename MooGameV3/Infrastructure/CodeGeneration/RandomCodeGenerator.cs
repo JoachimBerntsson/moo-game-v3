@@ -37,6 +37,6 @@ public sealed class RandomCodeGenerator(IGameRules rules, IRandomSource rng) : I
 			}
 		}
 
-		return SecretCode.Create(new string(buf));
+		return SecretCode.Create(new string(buf), len);
 	}
 }
