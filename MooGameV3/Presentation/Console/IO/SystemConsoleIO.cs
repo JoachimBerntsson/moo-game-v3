@@ -1,6 +1,6 @@
 ﻿using MooGameV3.Application.Abstractions;
 
-namespace MooGameV3.Presentation.Console;
+namespace MooGameV3.Presentation.Console.IO;
 
 public sealed class SystemConsoleIO : IGameIO
 {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MooGameV3.Presentation.Console.Configuration;
+using MooGameV3.Presentation.Console.Game;
 
 namespace MooGameV3.Presentation.Console;
 
