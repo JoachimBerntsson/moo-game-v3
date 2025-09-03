@@ -2,7 +2,6 @@
 using MooGameV3.Domain.Game;
 using MooGameV3.Application.Abstractions;
 using MooGameV3.Application.Services;
-using MooGameV3.Presentation.Console;
 using MooGameV3.Presentation.Console.Game;
 using MooGameV3.Presentation.Console.IO;
 using MooGameV3.Presentation.Console.Intro;
