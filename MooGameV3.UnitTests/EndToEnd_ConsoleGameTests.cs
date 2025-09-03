@@ -15,7 +15,7 @@ public class EndToEnd_ConsoleGameTests
 {
 	private sealed class FixedCodeGenerator : ICodeGenerator
 	{
-		public SecretCode Generate() => SecretCode.Create("1234");
+		public SecretCode Generate() => SecretCode.Create("1234", 4);
 	}
 
 	private sealed class InMemoryScoreRepository : IScoreRepository

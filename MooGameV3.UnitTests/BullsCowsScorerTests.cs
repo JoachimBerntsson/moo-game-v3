@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MooGameV3.Application.Abstractions;
 using MooGameV3.Domain.Game;
 
 namespace MooGameV3.UnitTests;
@@ -6,11 +7,18 @@ namespace MooGameV3.UnitTests;
 [TestClass]
 public class CodeEvaluatorTests
 {
-	private readonly ICodeEvaluator _sut = new CodeEvaluator();
+	private readonly ICodeEvaluator _sut = new CodeEvaluator(new TestGameRules());
 
-	private static SecretCode Code(string digits) => SecretCode.Create(digits);
+	private static SecretCode Code(string digits) => SecretCode.Create(digits, 4);
 	private static Guess CreateGuess(string input) => new Guess(input);
 
+	private sealed class TestGameRules : IGameRules
+	{
+		public int CodeLength => 4;
+		public bool AllowDuplicates => false;
+		public bool PracticeMode => false;
+		public int? MaxAttempts => null;
+	}
 	[TestMethod]
 	public void Evaluate_AllCorrect_ShouldBe4Bulls0Cows()
 	{
