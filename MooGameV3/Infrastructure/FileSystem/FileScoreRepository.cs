@@ -3,11 +3,20 @@ using MooGameV3.Application.Abstractions;
 
 namespace MooGameV3.Infrastructure.FileSystem;
 
-public sealed class FileScoreRepository(string path) : IScoreRepository
+public sealed class FileScoreRepository : IScoreRepository
 {
 	private static readonly Lock _lock = new();
-	private readonly string _path = Path.GetFullPath(path);
-	private const string Separator = "#&#";
+	private readonly string _path;
+	private readonly string _separator;
+
+	public FileScoreRepository(FileScoreRepositoryOptions options)
+	{
+		if (options is null) throw new ArgumentNullException(nameof(options));
+		if (string.IsNullOrWhiteSpace(options.Path)) throw new ArgumentException("Path must be provided.", nameof(options.Path));
+
+		_path = Path.GetFullPath(options.Path);
+		_separator = string.IsNullOrEmpty(options.Separator) ? "#&#" : options.Separator;
+	}
 
 	public void Append(string playerName, int guesses)
 	{
@@ -17,11 +26,11 @@ public sealed class FileScoreRepository(string path) : IScoreRepository
 
 		name = name.Replace('\r', ' ')
 				   .Replace('\n', ' ')
-				   .Replace(Separator, "-");
+				   .Replace(_separator, "-");
 
 		EnsureDirectory();
 
-		var line = $"{name}{Separator}{guesses.ToString(CultureInfo.InvariantCulture)}{Environment.NewLine}";
+		var line = $"{name}{_separator}{guesses.ToString(CultureInfo.InvariantCulture)}{Environment.NewLine}";
 		lock (_lock)
 		{
 			File.AppendAllText(_path, line);
@@ -45,7 +54,7 @@ public sealed class FileScoreRepository(string path) : IScoreRepository
 		}
 	}
 
-	private static bool TryParseLine(string? line, out string name, out int guesses)
+	private bool TryParseLine(string? line, out string name, out int guesses)
 	{
 		name = string.Empty;
 		guesses = 0;
@@ -53,7 +62,7 @@ public sealed class FileScoreRepository(string path) : IScoreRepository
 
 		var s = line.Trim();
 
-		var parts = s.Split(Separator, StringSplitOptions.None);
+		var parts = s.Split(new[] { _separator }, StringSplitOptions.None);
 		if (parts.Length == 2 && Try(parts[0], parts[1], out name, out guesses))
 			return true;
 

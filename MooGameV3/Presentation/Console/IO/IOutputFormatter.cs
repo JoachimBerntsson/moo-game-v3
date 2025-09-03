@@ -9,5 +9,5 @@ public interface IOutputFormatter
 	void Success(string text);
 	void Error(string text);
 	void Hint(string text);
-	void Markers(BullsCows result);
+	void Markers(BullsCows result, int codeLenght);
 }

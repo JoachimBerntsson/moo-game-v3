@@ -26,7 +26,8 @@ internal static class Program
 			.AddSingleton<IRandomSource, SystemRandomSource>()
 			.AddSingleton<ICodeGenerator, RandomCodeGenerator>()
 			.AddSingleton<ICodeEvaluator, CodeEvaluator>()
-			.AddSingleton<IScoreRepository>(_ => new FileScoreRepository(scoreFile))
+			.AddSingleton<IScoreRepository>(_ => new FileScoreRepository(
+				new MooGameV3.Infrastructure.FileSystem.FileScoreRepositoryOptions { Path = scoreFile }))
 			.AddSingleton<ScoreService>()
 			.AddSingleton<IGameIO, SystemConsoleIO>()
 			.AddSingleton<IGuessValidator, GuessValidator>()

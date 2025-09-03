@@ -20,8 +20,8 @@ public sealed class OutputFormatter : IOutputFormatter
 	public void Error(string text) => _io.WriteLineColored(text, System.ConsoleColor.Red);
 	public void Hint(string text) => _io.WriteLineColored(text, System.ConsoleColor.DarkYellow);
 
-	public void Markers(BullsCows result)
+	public void Markers(BullsCows result, int codeLength)
 	{
-		_io.WriteLineColored(result.ToMarkers(), System.ConsoleColor.Yellow);
+		_io.WriteLineColored(result.ToMarkers(codeLength), System.ConsoleColor.Yellow);
 	}
 }

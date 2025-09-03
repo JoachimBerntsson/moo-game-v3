@@ -3,8 +3,8 @@
 namespace MooGameV3.Presentation.Console;
 internal static class BullsCowsText
 {
-	public static string ToMarkers(this BullsCows bc)
-		=> new string('B', Math.Clamp(bc.Bulls, 0, SecretCode.Length))
+	public static string ToMarkers(this BullsCows bc, int codeLength)
+		=> new string('B', Math.Clamp(bc.Bulls, 0, codeLength))
 		   + ","
-		   + new string('C', Math.Clamp(bc.Cows, 0, SecretCode.Length));
+		   + new string('C', Math.Clamp(bc.Cows, 0, codeLength));
 }
