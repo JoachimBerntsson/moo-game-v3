@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/MooGameV3/Domain/Game/MooGame.cs
+/MooGameV3/Domain/Game/MooGame.cs

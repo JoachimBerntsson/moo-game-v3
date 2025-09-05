@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>MooGameV3.Domain</AssemblyName>
+		<RootNamespace>MooGameV3.Domain</RootNamespace>
+	</PropertyGroup>
+</Project>
